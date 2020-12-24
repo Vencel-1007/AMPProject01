@@ -99,6 +99,15 @@
 
     <!-- 配置 Servlet,JSP,JSTL 依赖关系 [END]-->
 
+    <!-- 配置 Jackson Databind 依赖关系[BEGIN] -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <!-- 配置 Jackson Databind 依赖关系[END] -->
+
+
 
     <dependency>
       <groupId>junit</groupId>
@@ -116,7 +125,6 @@
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>

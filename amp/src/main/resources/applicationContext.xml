@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!--设定 jdbc.properties 文件路径 [BEGIN] -->
+	<context:property-placeholder location="classpath*:/jdbc.properties"/>
+	<!--设定 jdbc.properties 文件路径 [END] -->
+
+	<!--设定 Spring 注解扫描的基础包位置 [BEGIN] -->
+	<context:component-scan base-package="cn.ekgc.amp">
+		<!-- 对于spring核心容器来说,无法进行请求映射处理,因此不能够扫描到和映射处理有关的注解 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	<!--设定 Spring 注解扫描的基础包位置 文件路径 [END] -->
+
+	<!--设定 配置数据源信息 Bean [BEGIN] -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<!-- 设定数据库连接的基本信息 -->
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<!-- Druid 数据库连接池相关信息 -->
+		<property name="minIdle" value="${druid.minIdle}"/>
+		<property name="maxActive" value="${druid.maxActive}"/>
+		<property name="initialSize" value="${druid.initialSize}"/>
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}"/>
+		<property name="maxEvictableIdleTimeMillis" value="${druid.maxEvictableIdleTimeMillis}"/>
+ 	</bean>
+	<!--设定 配置数据源信息 Bean 文件路径 [END] -->
+
+	<!-- 配置 MyBatis 的 SqlSessionFactory 的 Bean [BEGIN] -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 依赖注入DataSource 信息 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!--设定mybatis的映射文件所在路径-->
+		<property name="mapperLocations" value="classpath*:/mapper/*.Mapper.xml"/>
+		<!--设定实体类别名基础包-->
+		<property name="typeAliasesPackage" value="cn.ekgc.amp.pojo.entity"/>
+	</bean>
+	<!-- 配置 MyBatis 的 SqlSessionFactory 的 Bean [END] -->
+
+	<!-- 配置MyBatis的数据持久层接口扫描机制 [BEGIN] -->
+	<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--设定sqlSessionFactoryBeanName 的id名称-->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+		<!-- 设定数据持久层接口位置 -->
+		<property name="basePackage" value="cn.ekgc.amp,dao"/>
+	</bean>
+	<!-- 配置MyBatis的数据持久层接口扫描机制 [END] -->
+
+	<!-- 配置采用Spring所提供的事务处理机制 [BEGIN] -->
+	<bean id="transactionManger" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 依赖注入 DataSource -->
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!-- 配置采用Spring所提供的事务处理机制 [END] -->
+
+	<!-- 配置采用注解的形式进行事务处理 [BEGIN] -->
+	<tx:annotation-driven transaction-manager="transactionManger" proxy-target-class="true"/>
+	<!-- 配置采用注解的形式进行事务处理 [END] -->
+
+</beans>
