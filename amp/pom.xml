@@ -17,9 +17,89 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <spring.version>5.2.12.RELEASE</spring.version>
   </properties>
 
   <dependencies>
+    <!-- 配置 Spring Web MVC 依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- 配置 Spring Web MVC 依赖关系 [END] -->
+
+    <!-- 配置 Spring jdbc 依赖关系 [BEGIN]-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- 配置 Spring jdbc 依赖关系 [END]-->
+
+    <!-- 配置 MyBatis 依赖关系 [BEGIN]-->
+
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.6</version>
+    </dependency>
+
+    <!-- 配置 MyBatis 依赖关系 [END]-->
+
+    <!-- 配置 MyBatis和Spring结合 依赖关系 [BEGIN]-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>2.0.6</version>
+    </dependency>
+
+    <!-- 配置 MyBatis和Spring结合 依赖关系 [END]-->
+
+    <!-- 配置 mysql-connector-java 依赖关系 [BEGIN]-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.22</version>
+    </dependency>
+
+    <!-- 配置 mysql-connector-java 依赖关系 [END]-->
+
+    <!-- 配置 Druid 依赖关系 [BEGIN]-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.2.4</version>
+    </dependency>
+
+    <!-- 配置 Druid 依赖关系 [END]-->
+
+    <!-- 配置 Servlet,JSP,JSTL  依赖关系 [BEGIN]-->
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>2.3.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+    <dependency>
+      <groupId>javax.servlet.jsp.jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <!-- 配置 Servlet,JSP,JSTL 依赖关系 [END]-->
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
